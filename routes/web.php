@@ -12,10 +12,5 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::view('/example-page', 'example-page');
 Route::view('/example-auth', 'example-auth');
