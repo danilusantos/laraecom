@@ -1,6 +1,6 @@
 @extends('admin.layout.auth-layout', ['title' => 'Admin Login'])
 @section('content')
-<div class="col-md-12 col-lg-5 mx-auto">
+<div class="col-md-6 mx-auto">
     <div class="login-box bg-white box-shadow border-radius-10">
         <div class="login-title">
             <h2 class="text-center text-primary">Admin Login</h2>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="col-6">
                     <div class="forgot-password">
-                        <a href="forgot-password.html">Forgot Password</a>
+                        <a href="{{ route('admin.forgot-password') }}">Forgot Password</a>
                     </div>
                 </div>
             </div>

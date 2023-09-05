@@ -42,9 +42,7 @@
     <div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-12">
-                    @yield('content')
-                </div>
+                @yield('content')
             </div>
         </div>
     </div>
