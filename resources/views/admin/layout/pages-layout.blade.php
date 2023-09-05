@@ -4,7 +4,7 @@
 <head>
     <!-- Basic Page Info -->
     <meta charset="utf-8" />
-    <title>Título {{ isset($title) ? ' - ' . $title : ""}}</title>
+    <title>Título {{ isset($title) ? ' - ' . $title : '' }}</title>
 
     <!-- Site favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/src/vendors/images/apple-touch-icon.png" />
@@ -163,26 +163,49 @@
                     </div>
                 </div>
             </div>
-            <div class="user-info-dropdown">
-                <div class="dropdown">
-                    <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                        <span class="user-icon">
-                            <img src="/src/vendors/images/photo1.jpg" alt="" />
-                        </span>
-                        <span class="user-name">Ross C. Lopez</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                        <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
-                        <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
-                        <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
-                        <a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i> Log Out</a>
+
+            @if (Auth::guard('admin')->check())
+                <div class="user-info-dropdown">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                            <span class="user-icon">
+                                <img src="/src/vendors/images/photo1.jpg" alt="" />
+                            </span>
+                            <span class="user-name">{{ Auth::user()->name }}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                            <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
+                            <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
+                            <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
+                            <a class="dropdown-item" href="{{ route('admin.logout_handler') }}" onclick="event.preventDefault(); document.getElementById('adminLogoutForm').submit();">
+                                <i class="dw dw-logout"></i> Log Out
+                            </a>
+                            <form action="{{ route('admin.logout_handler')}}" id="adminLogoutForm" method="POST">
+                                @csrf
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="github-link">
-                <a href="https://github.com/dropways/deskapp" target="_blank"><img src="/src/vendors/images/github.svg"
-                        alt="" /></a>
-            </div>
+            @elseif(Auth::guard('seller')->check())
+                <div class="user-info-dropdown">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                            <span class="user-icon">
+                                <img src="/src/vendors/images/photo1.jpg" alt="" />
+                            </span>
+                            <span class="user-name">{{ Auth::user()->name }}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                            <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
+                            <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
+                            <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
+                            <a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i> Log Out</a>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+
         </div>
     </div>
 
@@ -484,7 +507,8 @@
                             target="_blank" class="dropdown-toggle no-arrow">
                             <span class="micon bi bi-layout-text-window-reverse"></span>
                             <span class="mtext">Landing Page
-                                <img src="/src/vendors/images/coming-soon.png" alt="" width="25" /></span>
+                                <img src="/src/vendors/images/coming-soon.png" alt=""
+                                    width="25" /></span>
                         </a>
                     </li>
                 </ul>
